@@ -10,7 +10,7 @@ Stack<T>::Stack() { // stack constructor
 template <typename T>
 Stack<T>::~Stack() { // stack destructor (delete all nodes from top to bottom)
     while (top != nullptr) {
-        Node* temp = top;
+        Node<T>* temp = top;
         top = top->next;
         delete temp;
     }
@@ -18,7 +18,7 @@ Stack<T>::~Stack() { // stack destructor (delete all nodes from top to bottom)
 
 template <typename T>
 void Stack<T>::push(const T& value) { // push to stack
-    Node* newNode = new Node(value, top); // constructor runs and new node points to top
+    Node<T>* newNode = new Node(value, top); // constructor runs and new node points to top
 
     top = newNode;
     count++;
@@ -30,7 +30,7 @@ T Stack<T>::pop() {
         throw std::out_of_range("Stack is empty");
     }
 
-    Node* temp = top;
+    Node<T>* temp = top;
     T value = top->data;
 
     top = top->next;
