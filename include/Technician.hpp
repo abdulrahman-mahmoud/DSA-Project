@@ -18,6 +18,7 @@ class Technician {
     Technician(int ids ,const string techType);
     void assign(Request* request);
     void complete();
+    void cancelCurrentRequest();
     bool isST() const;
     int getID() const ;
     int getBusyTime() const;

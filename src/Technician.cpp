@@ -32,7 +32,11 @@ void Technician:: complete(){
         currentRequest->setStatus(COMPLETED);
         currentRequest = nullptr;
     }
-    else{
-        cout << "No active request to complete." << endl;
+}
+
+void Technician::cancelCurrentRequest() {
+    if (currentRequest != nullptr) {
+        currentRequest->setStatus(CANCELLED);
+        currentRequest = nullptr;
     }
 }
