@@ -1,5 +1,7 @@
 #include "../include/locations.hpp"
 
+// array ds
+
 Locations::Locations(int numberOfLocations) {
     count = numberOfLocations;
 

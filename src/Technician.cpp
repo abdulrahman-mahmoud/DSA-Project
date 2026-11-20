@@ -47,3 +47,8 @@ void Technician::cancelCurrentRequest() {
         currentRequest = nullptr;
     }
 }
+
+// added by hassan
+Request* Technician::getCurrentRequest() const {
+    return currentRequest;
+}

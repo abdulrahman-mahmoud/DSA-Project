@@ -4,6 +4,7 @@
 #include <iostream>
 #include "queue.hpp"
 #include "request.hpp"
+#include "locations.hpp"
 
 using namespace std;
 
@@ -22,6 +23,9 @@ private:
     int cancelledCount;
     int tick;
 
+    // added by hassan for organizer loader
+    Locations* locations;
+
 public:
     Organizer();
     ~Organizer();
@@ -30,6 +34,9 @@ public:
     void loadSampleData();
     void simulate();
     void printState() const;
+
+    // organizer loader function added by hassan
+    bool loadInputFile(const string& filename);
 };
 
 #endif

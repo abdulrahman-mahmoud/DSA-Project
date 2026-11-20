@@ -23,6 +23,9 @@ class Technician {
         bool isST() const;
         int getID() const ;
         int getBusyTime() const;
+
+        // added by hassan
+        Request* getCurrentRequest() const;
 };
 
 
