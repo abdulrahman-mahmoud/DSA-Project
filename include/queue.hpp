@@ -64,7 +64,7 @@ public:
         return count == 0;
     }
 
-    int getCount() {
+    int getCount() const{
         return count;
     }
 
