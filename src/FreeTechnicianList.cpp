@@ -1,75 +1,49 @@
-#include "../include/node.hpp"
-#include "../include/Technician.hpp"
 #include "../include/FreeTechnicianList.hpp"
 
-FreeTechnicianList::FreeTechnicianList(){
-    front = nullptr;
-    count = 0;
-}
-int FreeTechnicianList::getCount()const{
-    return count;
-}
-bool FreeTechnicianList::isEmpty()const{
-    return front == nullptr;
-}
+// this code for freeST/freeGT
 
-void FreeTechnicianList::insert(Technician* technician) { // sorted linked list
-
-    Node<Technician*>* temp = new Node<Technician*>(technician);
-
-    Node<Technician*>* prev = nullptr;
-    Node<Technician*>* curr = front;
-
-    if (front == nullptr || technician->getID() < front->data->getID()) { // inserting the code
-        temp->next = front;
-        front = temp;
-        count++;
-        return;
+bool FreeTechnicianList::isHigher(Technician* const& a, Technician* const& b) const {
+    if (a == nullptr) {
+        return false;
     }
 
-    while (curr != nullptr && curr->data->getID() <= technician->getID()) { // sorting the data 
-        prev = curr;
-        curr = curr->next;
+    if (b == nullptr) {
+        return true;
     }
 
-    temp->next = curr;
-    prev->next = temp;
-
-    count++;
-    
+    return a->getID() < b->getID();
 }
-Technician* FreeTechnicianList::remove() { 
-    if (front == nullptr) {
-        return nullptr;
+
+void FreeTechnicianList::insert(Technician* technician) {
+    if (technician != nullptr) {
+        enqueue(technician);
+    }
+}
+
+Technician* FreeTechnicianList::remove() {
+    Technician* technician = nullptr;
+
+    if (dequeue(technician)) {
+        return technician;
     }
 
-    Node<Technician*>* temp = front;
-    Technician* technician = temp->data;
-    front = front->next;
-    delete temp;
-    --count;
-
-    return technician;
+    return nullptr;
 }
 
 void FreeTechnicianList::print() const {
-    Node<Technician*>* curr = front;
-
-    while (curr != nullptr) {
-        cout << curr->data->getID() << endl;
-        curr = curr->next;
-    }
-}
-
-FreeTechnicianList::~FreeTechnicianList() {
-    Node<Technician*>* curr = front;
-
-    while (curr != nullptr) {
-        Node<Technician*>* temp = curr;
-        curr = curr->next;
-        delete temp;
+    if (isEmpty()) {
+        cout << "empty" << endl;
+        return;
     }
 
-    front = nullptr;
-    count = 0;
+    Node<Technician*>* current = front;
+    while (current != nullptr) {
+        if (current->data != nullptr) {
+            cout << current->data->getID() << " ";
+        } else {
+            cout << "null ";
+        }
+        current = current->next;
+    }
+    cout << endl;
 }

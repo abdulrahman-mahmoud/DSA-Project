@@ -1,25 +1,16 @@
 #ifndef FREE_TECHNICIAN_LIST
 #define FREE_TECHNICIAN_LIST
 
-#include "node.hpp"
+#include "PriQueue.hpp"
 #include "Technician.hpp"
 
-class FreeTechnicianList {
-private:
-    Node<Technician*>* front;
-    int count;
-
+class FreeTechnicianList : public PriQueue<Technician*> {
 public:
-    FreeTechnicianList();
+    bool isHigher(Technician* const& a, Technician* const& b) const override;
 
     void insert(Technician* technician);
-    void print() const;
     Technician* remove();
-
-    bool isEmpty() const;
-    int getCount() const;
-
-    ~FreeTechnicianList();
+    void print() const;
 };
 
 #endif
