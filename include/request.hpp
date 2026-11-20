@@ -58,6 +58,7 @@ public:
     void setType(RequestType t)        { type = t; }
     void setStatus(RequestStatus s)    { status = s; }
 
+    // print if u give parameter as request object itself
     friend ostream& operator<<(ostream& os, const Request& req) {
         os << "\n      ID:                  " << req.RID    << "\n"
            << "      Queue Time:          " << req.QT     << "\n"
@@ -70,6 +71,8 @@ public:
            << "      Status:              " << req.status << "\n";
         return os;
     }
+
+    // print if u give parameter as pointer to request object
     friend ostream& operator<<(ostream& os, const Request* req) {
         if (req != nullptr) {
             os << "\n      ID:                  " << req->RID    << "\n"

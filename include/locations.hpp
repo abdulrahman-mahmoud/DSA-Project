@@ -21,5 +21,5 @@ public:
 
 #endif
 
-/* in main() during runtime there will only be 1 locations object
+/* in main function at the runtime there will only be 1 locations object
    that all other functions or operations use*/

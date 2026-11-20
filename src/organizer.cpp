@@ -1,6 +1,8 @@
 #include "../include/organizer.hpp"
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
+#include <string>
 
 Organizer::Organizer() {
     totalTickets   = 0;
@@ -180,3 +182,4 @@ void Organizer::simulate() {
     cout << "   Finished (" << finishedCount << ") + Cancelled (" << 
     cancelledCount  << ") == Total (" << totalTickets << ")\n";
 }
+
