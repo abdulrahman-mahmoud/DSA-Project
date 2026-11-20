@@ -28,6 +28,4 @@ class Technician {
         Request* getCurrentRequest() const;
 };
 
-
-
 #endif

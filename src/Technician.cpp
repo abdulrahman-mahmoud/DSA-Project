@@ -52,3 +52,18 @@ void Technician::cancelCurrentRequest() {
 Request* Technician::getCurrentRequest() const {
     return currentRequest;
 }
+
+ostream& operator<<(ostream& os, const Technician& technician) {  // ID of a technician object
+    os << technician.getID();
+    return os;
+}
+
+ostream& operator<<(ostream& os, const Technician* technician) {
+    if (technician != nullptr) {
+        os << technician->getID();
+    } else {
+        os << "null";
+    }
+
+    return os;
+}
