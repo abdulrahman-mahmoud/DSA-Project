@@ -15,13 +15,14 @@ class Technician {
         int busyTime;
 
     public:
-    Technician(int ids ,const string techType);
-    void assign(Request* request);
-    void complete();
-    void cancelCurrentRequest();
-    bool isST() const;
-    int getID() const ;
-    int getBusyTime() const;
+        Technician();
+        Technician(int ids ,const string techType);
+        void assign(Request* request);
+        void complete();
+        void cancelCurrentRequest();
+        bool isST() const;
+        int getID() const ;
+        int getBusyTime() const;
 };
 
 
