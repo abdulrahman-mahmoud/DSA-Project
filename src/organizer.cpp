@@ -14,9 +14,9 @@ Organizer::Organizer() {
 
 Organizer::~Organizer() {
     Request* req = nullptr;
-    while (WaitingSR.dequeue(req))        { delete req; }
-    while (WaitingNR.dequeue(req))        { delete req; }
-    while (WaitingUR.dequeue(req))        { delete req; }
+    while (waitingSR.dequeue(req))        { delete req; }
+    while (waitingNR.dequeue(req))        { delete req; }
+    while (waitingUR.dequeue(req))        { delete req; }
     while (CompletedTickets.dequeue(req)) { delete req; }
     while (CancelRequests.dequeue(req))   { delete req; }
 }
@@ -25,11 +25,11 @@ void Organizer::addRequest(Request* req) {
     if (req == nullptr) return;
 
     if (req->getType() == SR) {
-        WaitingSR.enqueue(req);
+        waitingSR.enqueue(req);
     } else if (req->getType() == UR) {
-        WaitingUR.enqueue(req);
+        waitingUR.enqueue(req);
     } else {
-        WaitingNR.enqueue(req);
+        waitingNR.enqueue(req);
     }
     totalTickets++;
 }
@@ -44,8 +44,8 @@ void Organizer::loadSampleData() {
 
 void Organizer::printState() const {
     cout << "           [Step " << tick << "]\n";
-    cout << "WaitingSR (" << const_cast<Queue<Request*>&>(WaitingSR).getCount() << "): ";
-    const_cast<Queue<Request*>&>(WaitingSR).print();
+    cout << "waitingSR (" << const_cast<WaitingSR&>(waitingSR).getCount() << "): ";
+    const_cast<WaitingSR&>(waitingSR).print();
 
     cout << "Completed (" << const_cast<Queue<Request*>&>(CompletedTickets).getCount() << "): ";
     const_cast<Queue<Request*>&>(CompletedTickets).print();
@@ -71,86 +71,86 @@ void Organizer::simulate() {
 
         if (r <= 25) {
             //SR Ticket finish
-            if (!WaitingSR.isEmpty()) {
+            if (!waitingSR.isEmpty()) {
                 Request* req = nullptr;
-                WaitingSR.dequeue(req);
+                waitingSR.dequeue(req);
                 req->setStatus(COMPLETED);
                 req->setFT(tick);
                 CompletedTickets.enqueue(req);
                 finishedCount++;
                 cout << ">> Move 1 (r=" << r << "): SR #" << req->getRID() << " completed.\n";
             } else {
-                cout << ">> Move 1 (r=" << r << "): WaitingSR empty.\n";
+                cout << ">> Move 1 (r=" << r << "): waitingSR empty.\n";
             }
         }
         else if (r <= 45) {
             //NR Ticket finish 
-            if (!WaitingNR.isEmpty()) {
+            if (!waitingNR.isEmpty()) {
                 Request* req = nullptr;
-                WaitingNR.dequeue(req);
+                waitingNR.dequeue(req);
                 req->setStatus(COMPLETED);
                 req->setFT(tick);
                 CompletedTickets.enqueue(req);
                 finishedCount++;
                 cout << ">> Move 2 (r=" << r << "): NR #" << req->getRID() << " completed.\n";
             } else {
-                cout << ">> Move 2 (r=" << r << "): WaitingNR empty.\n";
+                cout << ">> Move 2 (r=" << r << "): waitingNR empty.\n";
             }
         }
         else if (r <= 60) {
             //UR Ticket finish
-            if (!WaitingUR.isEmpty()) {
+            if (!waitingUR.isEmpty()) {
                 Request* req = nullptr;
-                WaitingUR.dequeue(req);
+                waitingUR.dequeue(req);
                 req->setStatus(COMPLETED);
                 req->setFT(tick);
                 CompletedTickets.enqueue(req);
                 finishedCount++;
                 cout << ">> Move 3 (r=" << r << "): UR #" << req->getRID() << " completed.\n";
             } else {
-                cout << ">> Move 3 (r=" << r << "): WaitingUR empty.\n";
+                cout << ">> Move 3 (r=" << r << "): waitingUR empty.\n";
             }
         }
         else if (r <= 75) {
             //NR Ticket cancelled
-            if (!WaitingNR.isEmpty()) {
+            if (!waitingNR.isEmpty()) {
                 Request* req = nullptr;
-                WaitingNR.dequeue(req);
+                waitingNR.dequeue(req);
                 req->setStatus(CANCELLED);
                 CancelRequests.enqueue(req);
                 cancelledCount++;
                 cout << ">> Move 4 (r=" << r << "): NR #" << req->getRID() << " cancelled.\n";
             } else {
-                cout << ">> Move 4 (r=" << r << "): WaitingNR empty (no cancel).\n";
+                cout << ">> Move 4 (r=" << r << "): waitingNR empty (no cancel).\n";
             }
         }
         else if (r <= 85) {
             // SR ticket finishes
-            if (!WaitingSR.isEmpty()) {
+            if (!waitingSR.isEmpty()) {
                 Request* req = nullptr;
-                WaitingSR.dequeue(req);
+                waitingSR.dequeue(req);
                 req->setStatus(COMPLETED);
                 req->setFT(tick);
                 CompletedTickets.enqueue(req);
                 finishedCount++;
                 cout << ">> Move 5 (r=" << r << "): SR #" << req->getRID() << " completed.\n";
             } else {
-                cout << ">> Move 5 (r=" << r << "): WaitingSR empty.\n";
+                cout << ">> Move 5 (r=" << r << "): waitingSR empty.\n";
             }
         }
         else if (r <= 95) {
             //finish pending UR/NR tickets
-            if (!WaitingUR.isEmpty()) {
+            if (!waitingUR.isEmpty()) {
                 Request* req = nullptr;
-                WaitingUR.dequeue(req);
+                waitingUR.dequeue(req);
                 req->setStatus(COMPLETED);
                 req->setFT(tick);
                 CompletedTickets.enqueue(req);
                 finishedCount++;
                 cout << ">> Move 6 (r=" << r << "): UR #" << req->getRID() << " completed.\n";
-            } else if (!WaitingNR.isEmpty()) {
+            } else if (!waitingNR.isEmpty()) {
                 Request* req = nullptr;
-                WaitingNR.dequeue(req);
+                waitingNR.dequeue(req);
                 req->setStatus(COMPLETED);
                 req->setFT(tick);
                 CompletedTickets.enqueue(req);
@@ -162,16 +162,16 @@ void Organizer::simulate() {
         }
         else {
             //finish remaining SR ticket
-            if (!WaitingSR.isEmpty()) {
+            if (!waitingSR.isEmpty()) {
                 Request* req = nullptr;
-                WaitingSR.dequeue(req);
+                waitingSR.dequeue(req);
                 req->setStatus(COMPLETED);
                 req->setFT(tick);
                 CompletedTickets.enqueue(req);
                 finishedCount++;
                 cout << ">> Move 7 (r=" << r << "): SR #" << req->getRID() << " completed.\n";
             } else {
-                cout << ">> Move 7 (r=" << r << "): WaitingSR empty.\n";
+                cout << ">> Move 7 (r=" << r << "): waitingSR empty.\n";
             }
         }
 

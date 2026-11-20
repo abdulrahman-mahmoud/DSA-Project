@@ -5,17 +5,20 @@
 #include "queue.hpp"
 #include "request.hpp"
 #include "locations.hpp"
+#include "WaitingNR.hpp"
+#include "WaitingSR.hpp"
+#include "WaitingUR.hpp"
 
 using namespace std;
 
 class Organizer {
 private:
-    Queue<Request*> WaitingSR;
+    WaitingSR waitingSR;
     Queue<Request*> CancelRequests;
     Queue<Request*> CompletedTickets; 
 
-    Queue<Request*> WaitingNR;
-    Queue<Request*> WaitingUR;
+    WaitingNR waitingNR;
+    WaitingUR waitingUR;
 
     // Simulation tracking
     int totalTickets;
