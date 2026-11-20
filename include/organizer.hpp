@@ -42,7 +42,7 @@ public:
 
     void addRequest(Request* req);
     void loadSampleData();
-    void simulate();
+    void simulate(bool interactive = false);
     void printState() const;
 
     // organizer loader function added by hassan

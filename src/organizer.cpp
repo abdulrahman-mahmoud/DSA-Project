@@ -98,8 +98,7 @@ bool Organizer::loadInputFile(const string& filename) {
     for (int i = 0; i < C; i++) {
         int ct, rid;
         in >> ct >> rid;
-        Request* cancelReq = new Request(rid, ct, 0, 0, NR, 0);
-        CancelRequests.enqueue(cancelReq);
+        // cancellation records are not tickets; ignore in Phase 1.2
     }
 
     return true;
@@ -128,7 +127,7 @@ void Organizer::printState() const {
          << " / " << totalTickets << "\n\n";
 }
 
-void Organizer::simulate() {
+void Organizer::simulate(bool interactive) {
     cout << "       Starting Simulation (Total: " << totalTickets << " Tickets) \n\n";
     printState();
 
@@ -209,6 +208,10 @@ void Organizer::simulate() {
         }
 
         printState();
+        if (interactive) {
+            cout << "Press Enter to advance to the next minute.\n";
+            cin.get();
+        }
     }
 
     cout << "               Simulation Finished\n";
