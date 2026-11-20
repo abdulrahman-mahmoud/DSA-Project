@@ -1,7 +1,7 @@
-#include "include/WaitingNR.hpp"
-#include "include/Queue.hpp"
-#include "include/request.hpp"
-#include "include/Node.hpp"
+#include "../include/WaitingNR.hpp"
+#include "../include/queue.hpp"
+#include "../include/request.hpp"
+#include "../include/node.hpp"
 
 Request* WaitingNR::cancelByRID(int rid) {
 

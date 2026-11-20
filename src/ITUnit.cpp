@@ -1,4 +1,4 @@
-#include "ITUnit.hpp"
+#include "../include/ITUnit.hpp"
 
 ITUnit::ITUnit(int numberOfST, int numberOfGT) {
 

@@ -1,6 +1,6 @@
-#include "node.hpp"
-#include "Technician.hpp"
-#include "FreeTechnicianList.hpp"
+#include "../include/node.hpp"
+#include "../include/Technician.hpp"
+#include "../include/FreeTechnicianList.hpp"
 
 FreeTechnicianList::FreeTechnicianList(){
     front = nullptr;
@@ -16,7 +16,6 @@ bool FreeTechnicianList::isEmpty()const{
 void FreeTechnicianList::insert(Technician* technician) { // sorted linked list
 
     Node<Technician*>* temp = new Node<Technician*>(technician);
-    int lastSorted = 0;
 
     Node<Technician*>* prev = nullptr;
     Node<Technician*>* curr = front;
@@ -29,7 +28,6 @@ void FreeTechnicianList::insert(Technician* technician) { // sorted linked list
     }
 
     while (curr != nullptr && curr->data->getID() <= technician->getID()) { // sorting the data 
-        lastSorted = curr->data->getID();
         prev = curr;
         curr = curr->next;
     }
