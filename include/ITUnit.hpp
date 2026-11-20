@@ -32,6 +32,8 @@ public:
     // Technician stuff
     Technician* getFreeST();
     Technician* getFreeGT();
+    int getFreeSTCount() const;
+    int getFreeGTCount() const;
     
     void returnST(Technician* technician);
     void returnGT(Technician* technician);

@@ -28,6 +28,14 @@ Technician* ITUnit::getFreeGT(){
     return freeGT.remove();
 };
 
+int ITUnit::getFreeSTCount() const {
+    return freeST.getCount();
+}
+
+int ITUnit::getFreeGTCount() const {
+    return freeGT.getCount();
+}
+
 void ITUnit::returnST(Technician* technician){
     freeST.insert(technician);
 }
