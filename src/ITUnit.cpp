@@ -20,6 +20,40 @@ ITUnit::ITUnit(int numberOfST, int numberOfGT) {
     }
 }
 
+Technician* ITUnit::getFreeST(){
+    return freeST.remove();
+};
+
+Technician* ITUnit::getFreeGT(){
+    return freeGT.remove();
+};
+
+void ITUnit::returnST(Technician* technician){
+    freeST.insert(technician);
+}
+
+void ITUnit::returnGT(Technician* technician){
+    freeGT.insert(technician);
+}
+
+void ITUnit::addWaitingNR(Request* request){
+    waitingNR.enqueue(request);
+}
+
+Request* ITUnit::getWaitingNR(){
+    Request* request = nullptr;
+    waitingNR.dequeue(request);
+    return request;
+}
+
+Request* ITUnit::cancelWaitingNR(int rid){
+    return waitingNR.cancelByRID(rid);
+}
+
+int ITUnit::getWaitingNRCount() const{
+    return waitingNR.getCount();
+}
+
 ITUnit::~ITUnit() {
     delete[] technicians;
 }

@@ -25,6 +25,19 @@ private:
 public:
 
     ITUnit(int numberOfST, int numberOfGT);
+    // Technician stuff
+    Technician* getFreeST();
+    Technician* getFreeGT();
+    
+    void returnST(Technician* technician);
+    void returnGT(Technician* technician);
+
+    // Tickets stuff 
+    void addWaitingNR(Request* request);
+    Request* getWaitingNR();
+    Request* cancelWaitingNR(int rid);
+    int getWaitingNRCount() const;
+
     ~ITUnit();
 
 };
