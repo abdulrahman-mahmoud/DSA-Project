@@ -3,6 +3,13 @@
 #include <iostream>
 using namespace std;
 
+Technician::Technician() {
+    id = 0;
+    type = "";
+    currentRequest = nullptr;
+    busyTime = 0;
+}
+
 Technician::Technician(int ids, const string techType) {
     id = ids;
     type =  techType;
