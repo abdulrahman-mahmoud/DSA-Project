@@ -15,7 +15,11 @@ public:
     PriQueue() {
         front = nullptr;
         count = 0;
-    }   
+    }
+
+    // CHANGE by abdo: disable copying, otherwise two queues share one node chain and both destructors delete it (double free)
+    PriQueue(const PriQueue&) = delete;
+    PriQueue& operator=(const PriQueue&) = delete;
 
     virtual ~PriQueue() {
         while (front != nullptr) {
@@ -31,12 +35,12 @@ public:
 
 
     void enqueue(T value) {
-        Node<T>* newNode = new Node<T>(value);  
+        Node<T>* newNode = new Node<T>(value);
         if (front == nullptr || isHigher(value, front->data)) {
-            newNode->next = front;     
-            front = newNode;        
+            newNode->next = front;
+            front = newNode;
         }
-      
+
         else {
             Node<T>* curr = front;
 
@@ -69,9 +73,7 @@ public:
     }
 
 
-    bool peek(T& value) {
-
-
+    bool peek(T& value) const {   
 
         if (isEmpty()) {
 
@@ -92,7 +94,7 @@ public:
 
     void print() const {
         if (isEmpty()) {
-            cout << "[ empty ]";
+            cout << "empty" << endl;   
             return;
         }
 
