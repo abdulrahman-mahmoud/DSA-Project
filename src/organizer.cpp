@@ -10,6 +10,10 @@ Organizer::Organizer() {
     cancelledCount = 0;
     tick       = 0;
     srand(0);
+    itUnit = nullptr;
+    locations = nullptr;
+    serviceDuration = nullptr;
+    problemCount = 0;
 }
 
 Organizer::~Organizer() {
@@ -19,6 +23,9 @@ Organizer::~Organizer() {
     while (waitingUR.dequeue(req))        { delete req; }
     while (CompletedTickets.dequeue(req)) { delete req; }
     while (CancelRequests.dequeue(req))   { delete req; }
+    delete itUnit;
+    delete locations;
+    delete[] serviceDuration;
 }
 
 void Organizer::addRequest(Request* req) {
@@ -40,6 +47,61 @@ void Organizer::loadSampleData() {
     addRequest(new Request(103, 2, 1, 20, UR, 3));
     addRequest(new Request(104, 2, 3, 25, SR, 0));
     addRequest(new Request(105, 3, 2, 10, NR, 0));
+}
+
+bool Organizer::loadInputFile(const string& filename) {
+    ifstream in(filename.c_str());
+    if (!in) return false;
+
+    int L;
+    in >> L;
+    locations = new Locations(L);
+    for (int i = 1; i <= L; i++) {
+        string name;
+        in >> name;
+        locations->setLocation(i, name);
+    }
+
+    in >> problemCount;
+    serviceDuration = new int[problemCount + 1];
+    for (int i = 1; i <= problemCount; i++) {
+        char cat;
+        int dur;
+        in >> cat >> dur;
+        serviceDuration[i] = dur;
+    }
+
+    int stCount, gtCount;
+    in >> stCount >> gtCount;
+    itUnit = new ITUnit(stCount, gtCount);
+
+    int R;
+    in >> R;
+    for (int i = 0; i < R; i++) {
+        string type;
+        in >> type;
+        if (type == "NR" || type == "SR") {
+            int qt, rid, lid, pc;
+            in >> qt >> rid >> lid >> pc;
+            RequestType t = (type == "SR") ? SR : NR;
+            addRequest(new Request(rid, qt, lid, pc, t, 0));
+        } else if (type == "UR") {
+            int qt, rid, lid, pc, pr;
+            in >> qt >> rid >> lid >> pc >> pr;
+            addRequest(new Request(rid, qt, lid, pc, UR, pr));
+        }
+    }
+
+    int C;
+    in >> C;
+    for (int i = 0; i < C; i++) {
+        int ct, rid;
+        in >> ct >> rid;
+        Request* cancelReq = new Request(rid, ct, 0, 0, NR, 0);
+        CancelRequests.enqueue(cancelReq);
+    }
+
+    return true;
 }
 
 void Organizer::printState() const {

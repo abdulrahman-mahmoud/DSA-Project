@@ -8,6 +8,8 @@
 #include "WaitingNR.hpp"
 #include "WaitingSR.hpp"
 #include "WaitingUR.hpp"
+#include "ITUnit.hpp"
+#include "WorkingTechs.hpp"
 
 using namespace std;
 
@@ -20,6 +22,9 @@ private:
     WaitingNR waitingNR;
     WaitingUR waitingUR;
 
+    ITUnit* itUnit;
+    WorkingTechs workingTechs;
+
     // Simulation tracking
     int totalTickets;
     int finishedCount;
@@ -28,6 +33,8 @@ private:
 
     // added by hassan for organizer loader
     Locations* locations;
+    int* serviceDuration;
+    int problemCount;
 
 public:
     Organizer();
