@@ -65,5 +65,5 @@ void UI::printSilentStart() {
 }
 
 void UI::printSilentEnd() {
-    cout << "Simulation ends, Output file created" << endl;
+    cout << "Simulation ends." << endl;
 }

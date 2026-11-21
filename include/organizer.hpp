@@ -17,7 +17,10 @@ class Organizer {
 private:
     WaitingSR waitingSR;
     Queue<Request*> CancelRequests;
-    Queue<Request*> CompletedTickets; 
+    Queue<Request*> CompletedTickets;
+
+    Queue<int> cancelRecordCT;
+    Queue<int> cancelRecordRID; 
 
     WaitingNR waitingNR;
     WaitingUR waitingUR;

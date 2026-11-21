@@ -8,9 +8,16 @@ class WorkingTechs : public PriQueue<Technician*> {
 public:
 
     bool isHigher(Technician* const& a, Technician* const& b) const override {
+        // Phase 1 technicians may have no assigned ticket (nullptr).
+        Request* reqA = (a != nullptr) ? a->getCurrentRequest() : nullptr;
+        Request* reqB = (b != nullptr) ? b->getCurrentRequest() : nullptr;
 
-        Request* reqA = a->getCurrentRequest();
-        Request* reqB = b->getCurrentRequest();
+        if (reqA == nullptr && reqB == nullptr) {
+            if (a != nullptr && b != nullptr) return a->getID() < b->getID();
+            return false;
+        }
+        if (reqA == nullptr) return false;
+        if (reqB == nullptr) return true;
 
         if (reqA->getFT() != reqB->getFT())
             return reqA->getFT() < reqB->getFT();

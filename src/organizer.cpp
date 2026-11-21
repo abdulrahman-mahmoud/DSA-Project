@@ -98,7 +98,9 @@ bool Organizer::loadInputFile(const string& filename) {
     for (int i = 0; i < C; i++) {
         int ct, rid;
         in >> ct >> rid;
-        // cancellation records are not tickets; ignore in Phase 1.2
+        // Store cancellation records (do not discard input data).
+        cancelRecordCT.enqueue(ct);
+        cancelRecordRID.enqueue(rid);
     }
 
     return true;
