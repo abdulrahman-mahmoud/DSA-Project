@@ -108,20 +108,20 @@ bool Organizer::loadInputFile(const string& filename) {
 
 void Organizer::printState() const {
     cout << "           [Step " << tick << "]\n";
-    cout << "WaitingSR (" << const_cast<WaitingSR&>(waitingSR).getCount() << "): ";
-    const_cast<WaitingSR&>(waitingSR).print();
+    cout << "WaitingSR (" << waitingSR.getCount() << "): ";
+    waitingSR.print();
 
-    cout << "WaitingNR (" << const_cast<WaitingNR&>(waitingNR).getCount() << "): ";
-    const_cast<WaitingNR&>(waitingNR).print();
+    cout << "WaitingNR (" << waitingNR.getCount() << "): ";
+    waitingNR.print();
 
-    cout << "WaitingUR (" << const_cast<WaitingUR&>(waitingUR).getCount() << "): ";
-    const_cast<WaitingUR&>(waitingUR).print();
+    cout << "WaitingUR (" << waitingUR.getCount() << "): ";
+    waitingUR.print();
 
-    cout << "Completed (" << const_cast<Queue<Request*>&>(CompletedTickets).getCount() << "): ";
-    const_cast<Queue<Request*>&>(CompletedTickets).print();
+    cout << "Completed (" << CompletedTickets.getCount() << "): ";
+    CompletedTickets.print();
 
-    cout << "Cancelled (" << const_cast<Queue<Request*>&>(CancelRequests).getCount() << "): ";
-    const_cast<Queue<Request*>&>(CancelRequests).print();
+    cout << "Cancelled (" << CancelRequests.getCount() << "): ";
+    CancelRequests.print();
 
     cout << "Progress: Finished=" << finishedCount
          << " + Cancelled=" << cancelledCount

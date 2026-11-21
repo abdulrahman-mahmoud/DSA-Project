@@ -60,11 +60,11 @@ public:
         return true;
     }
 
-    bool isEmpty() {
+    bool isEmpty() const {
         return count == 0;
     }
 
-    int getCount() const{
+    int getCount() const {
         return count;
     }
 
@@ -78,7 +78,7 @@ public:
         count = 0;
     }
 
-    void print() {
+    void print() const {
         if (isEmpty()) {
             cout << " [ empty ]" << endl;
             return;
