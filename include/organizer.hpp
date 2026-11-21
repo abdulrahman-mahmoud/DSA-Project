@@ -5,17 +5,25 @@
 #include "queue.hpp"
 #include "request.hpp"
 #include "locations.hpp"
+#include "WaitingNR.hpp"
+#include "WaitingSR.hpp"
+#include "WaitingUR.hpp"
+#include "ITUnit.hpp"
+#include "WorkingTechs.hpp"
 
 using namespace std;
 
 class Organizer {
 private:
-    Queue<Request*> WaitingSR;
+    WaitingSR waitingSR;
     Queue<Request*> CancelRequests;
     Queue<Request*> CompletedTickets; 
 
-    Queue<Request*> WaitingNR;
-    Queue<Request*> WaitingUR;
+    WaitingNR waitingNR;
+    WaitingUR waitingUR;
+
+    ITUnit* itUnit;
+    WorkingTechs workingTechs;
 
     // Simulation tracking
     int totalTickets;
@@ -25,6 +33,8 @@ private:
 
     // added by hassan for organizer loader
     Locations* locations;
+    int* serviceDuration;
+    int problemCount;
 
 public:
     Organizer();
@@ -32,7 +42,7 @@ public:
 
     void addRequest(Request* req);
     void loadSampleData();
-    void simulate();
+    void simulate(bool interactive = false);
     void printState() const;
 
     // organizer loader function added by hassan

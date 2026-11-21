@@ -1,103 +1,42 @@
 #include <iostream>
-#include <cassert>
+#include <string>
 
-#include "../include/stack.hpp"
-#include "../include/locations.hpp"
-#include "../include/WorkingTechs.hpp"
+#include "../include/organizer.hpp"
+#include "../include/UI.hpp"
 
 using namespace std;
 
 int main() {
+    cout << "IT SUPPORT\n\n";
+    cout << "University IT Support Management System\n";
 
-    cout << "===== PHASE 1.2 DATA STRUCTURE TESTS =====\n\n";
+    UI ui;
+    ui.readMode();
+    ui.readFileNames();
 
-    // STACK TEST
+    string inputFile = ui.getInputFile();
+    bool interactive = ui.isInteractive();
 
-    cout << "Testing Stack...\n";
+    Organizer org;
+    if (!org.loadInputFile(inputFile)) {
+        cout << "Failed to load input file: " << inputFile << "\n";
+        cout << "Press Enter to close...";
+        cin.get();
+        return 1;
+    }
 
-    Stack<int> s;
+    if (!interactive) {
+        ui.printSilentStart();
+    }
 
-    assert(s.isEmpty());
+    org.simulate(interactive);
 
-    s.push(10);
-    s.push(20);
-    s.push(30);
+    if (!interactive) {
+        ui.printSilentEnd();
+    }
 
-    assert(s.size() == 3);
-    assert(s.peek() == 30);
-    assert(s.pop() == 30);
-    assert(s.pop() == 20);
-    assert(s.pop() == 10);
-    assert(s.isEmpty());
-
-    cout << "Stack: PASSED\n\n";
-
-    // LOCATIONS TEST
-
-    cout << "Testing Locations...\n";
-
-    Locations locations(3);
-
-    locations.setLocation(1, "CSAI");
-    locations.setLocation(2, "LAB1");
-    locations.setLocation(3, "ADMIN");
-
-    assert(locations.getCount() == 3);
-    assert(locations.getLocation(1) == "CSAI");
-    assert(locations.getLocation(2) == "LAB1");
-    assert(locations.getLocation(3) == "ADMIN");
-    assert(locations.getLocation(4) == "");
-
-    cout << "Locations: PASSED\n\n";
-
-    // WORKING TECHNICIANS TEST
-
-    cout << "Testing WorkingTechs...\n";
-
-    // create 3 sample request
-    Request r1(20, 1, 1, 1, NR, 0);
-    Request r2(30, 1, 1, 1, NR, 0);
-    Request r3(10, 1, 1, 1, NR, 0);
-
-    // set request finish time
-    r1.setFT(8);
-    r2.setFT(5);
-    r3.setFT(5);
-
-    // create 3 sample technician object
-    Technician t1(1, "GT");
-    Technician t2(2, "GT");
-    Technician t3(3, "GT");
-
-    // give each technician one sample request
-    t1.assign(&r1);
-    t2.assign(&r2);
-    t3.assign(&r3);
-
-    // priority queue object
-    WorkingTechs working;
-
-    working.enqueue(&t1);
-    working.enqueue(&t2);
-    working.enqueue(&t3);
-
-    Technician* finished;
-
-    working.dequeue(finished);
-    assert(finished->getID() == 3);
-
-    working.dequeue(finished);
-    assert(finished->getID() == 2);
-
-    working.dequeue(finished);
-    assert(finished->getID() == 1);
-
-    assert(working.isEmpty());
-
-    cout << "WorkingTechs: PASSED\n\n";
-
-
-    cout << "===== ALL TESTS PASSED =====\n";
-
+    cout << "Simulation ends.\n";
+    cout << "Press Enter to close...";
+    cin.get();
     return 0;
 }

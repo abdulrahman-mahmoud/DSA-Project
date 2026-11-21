@@ -28,6 +28,14 @@ Technician* ITUnit::getFreeGT(){
     return freeGT.remove();
 };
 
+int ITUnit::getFreeSTCount() const {
+    return freeST.getCount();
+}
+
+int ITUnit::getFreeGTCount() const {
+    return freeGT.getCount();
+}
+
 void ITUnit::returnST(Technician* technician){
     freeST.insert(technician);
 }
@@ -35,6 +43,8 @@ void ITUnit::returnST(Technician* technician){
 void ITUnit::returnGT(Technician* technician){
     freeGT.insert(technician);
 }
+
+// Waiting NR
 
 void ITUnit::addWaitingNR(Request* request){
     waitingNR.enqueue(request);
@@ -52,6 +62,38 @@ Request* ITUnit::cancelWaitingNR(int rid){
 
 int ITUnit::getWaitingNRCount() const{
     return waitingNR.getCount();
+}
+
+// Waiting SR
+
+void ITUnit::addWaitingSR(Request* request){
+    waitingSR.enqueue(request);
+}
+
+Request* ITUnit::getWaitingSR(){
+    Request* request = nullptr;
+    waitingSR.dequeue(request);
+    return request;
+}
+
+int ITUnit::getWaitingSRCount() const{
+    return waitingSR.getCount();
+}
+
+// Waiting UR
+
+void ITUnit::addWaitingUR(Request* request){
+    waitingUR.enqueue(request);
+}
+
+Request* ITUnit::getWaitingUR(){
+    Request* request = nullptr;
+    waitingUR.dequeue(request);
+    return request;
+}
+
+int ITUnit::getWaitingURCount() const{
+    return waitingUR.getCount();
 }
 
 ITUnit::~ITUnit() {

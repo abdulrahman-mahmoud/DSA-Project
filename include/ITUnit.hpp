@@ -8,6 +8,8 @@ it manges the it dep all , from Waiting NR SR UR and Techniacal
 #include "Technician.hpp"
 #include "FreeTechnicianList.hpp"
 #include "WaitingNR.hpp"
+#include "WaitingSR.hpp"
+#include "WaitingUR.hpp"
 
 class ITUnit {
 private:
@@ -16,6 +18,8 @@ private:
     FreeTechnicianList freeGT;
 
     WaitingNR waitingNR;
+    WaitingSR waitingSR;
+    WaitingUR waitingUR;
 
     Technician* technicians;
 
@@ -28,6 +32,8 @@ public:
     // Technician stuff
     Technician* getFreeST();
     Technician* getFreeGT();
+    int getFreeSTCount() const;
+    int getFreeGTCount() const;
     
     void returnST(Technician* technician);
     void returnGT(Technician* technician);
@@ -37,6 +43,14 @@ public:
     Request* getWaitingNR();
     Request* cancelWaitingNR(int rid);
     int getWaitingNRCount() const;
+
+    void addWaitingSR(Request* request);
+    Request* getWaitingSR();
+    int getWaitingSRCount() const;
+
+    void addWaitingUR(Request* request);
+    Request* getWaitingUR();
+    int getWaitingURCount() const;
 
     ~ITUnit();
 
