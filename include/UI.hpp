@@ -11,21 +11,21 @@ using namespace std;
 
 class UI {
 private:
-    bool interactive;        // true = Interactive, false = Silent
+    bool interactive;        
     string inputFile;
     string outputFile;
 
 public:
     UI();
 
-    void readMode();         // asks the user for the mode
-    void readFileNames();    // asks for input and output file names
+    void readMode();         
+    void readFileNames();    
 
     bool isInteractive() const;
     string getInputFile() const;
     string getOutputFile() const;
 
-    // prints one minute of the simulation by calling print() on each list
+    
     void printScreen(int minute,
                      WaitingUR* ur,
                      Queue<Request*>* sr,
@@ -34,7 +34,7 @@ public:
                      FreeTechnicianList* freeGT,
                      Queue<Request*>* completed);
 
-    void waitForEnter();     // Interactive mode: pause until Enter
+    void waitForEnter();     
     void printSilentStart();
     void printSilentEnd();
 };
