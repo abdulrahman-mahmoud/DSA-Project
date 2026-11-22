@@ -17,7 +17,7 @@ public:
         count = 0;
     }
 
-    // CHANGE by abdo: disable copying, otherwise two queues share one node chain and both destructors delete it (double free)
+
     PriQueue(const PriQueue&) = delete;
     PriQueue& operator=(const PriQueue&) = delete;
 
